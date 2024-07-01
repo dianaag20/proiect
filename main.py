@@ -55,7 +55,7 @@ def salvare_catre_fisier(filename, data, format_fisier):
                 writer.writerow(element)
 
 def capitalize_name(name):
-    return ' '.join(word.capitalize() for word in re.split('[- ]', name))
+    return ' '.join(word.capitalize() for word in name.split())
 
 def citire_date():
     data = []
@@ -75,7 +75,6 @@ def main():
     data = citire_date()
     date_validate = citire_si_validare_date(data)
     print("Elementele validate:", date_validate)
-    #return data, date_validate
 
     while True:
         comanda = input("Introduceti comanda (salveaza/iesire): ")
