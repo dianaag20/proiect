@@ -77,7 +77,7 @@ def main():
             salvare_catre_fisier(filename, date_validate)
             print(f"Datele au fost salvate in fisierul {filename}.")
         elif comanda == "iesire":
-            print("Datele validate:", date_validate)
+            print("Datele validate: ", date_validate)
             break
         else:
             print("Comanda necunoscuta. Incearca din nou.")
