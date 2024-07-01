@@ -1,7 +1,20 @@
 import re
 
 def validare_name(nume):
-    return nume.isalpha()
+    return bool(re.match(r'^[a-zA-Z- ]+$', nume))
+
+def validare_elemente(element):
+    if len(element) not in [3, 4]:
+        return False
+    nume, prenume, cnp = element[:3]
+    if not (validare_name(nume) and validare_name(prenume)):
+        return False
+    if not validare_cnp(cnp):
+        return False
+    return {'nume': nume, 'prenume': prenume, 'cnp': cnp}
+
+def validare_name(nume):
+    return bool(re.match(r'^[a-zA-Z- ]+$', nume))
 
 def validare_cnp(cnp):
     if not (cnp.isdigit() and len(cnp) == 13):
@@ -40,14 +53,14 @@ def salvare_catre_fisier(filename, data):
             file.write(line)
 
 def citire_date():
-    data=[]
+    data = []
     while True:
-        nume=input("Introduceti numele: ")
-        prenume=input("Introduceti prenumele: ")
-        cnp=input("Introduceti CNP-ul: ")
+        nume = input("Introduceti numele: ")
+        prenume = input("Introduceti prenumele: ")
+        cnp = input("Introduceti CNP-ul: ")
         data.append((nume, prenume, cnp))
-        continuare_date=input("Doriti sa mai introduceti alte date? (da/nu): ")
-        if continuare_date.lower()!='da':
+        continuare_date = input("Doriti sa mai introduceti alte date? (da/nu): ")
+        if continuare_date.lower() != 'da':
             break
     return data
 
@@ -60,11 +73,12 @@ def main():
     while True:
         comanda = input("Introduceti comanda (salveaza/iesire): ")
         if comanda == "salveaza":
-            filename = input("Introduceti numele fisierului: ")
+            filename = input("Introduceti un nume fisierului: ")
             salvare_catre_fisier(filename, date_validate)
             print(f"Datele au fost salvate in fisierul {filename}.")
         elif comanda == "iesire":
             print("Datele validate:", date_validate)
+            break
         else:
             print("Comanda necunoscuta. Incearca din nou.")
 
